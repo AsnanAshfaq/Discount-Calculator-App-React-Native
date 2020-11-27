@@ -12,10 +12,13 @@ export default function App() {
     if (OriginalPrice == "" || DiscountPercentage == "") {
       setFinalPrice(null);
     } else if (OriginalPrice != null && DiscountPercentage != null) {
-      if (DiscountPercentage > -1 && DiscountPercentage < 101) {
-        let finalprice = (OriginalPrice - (DiscountPercentage / 100 ) * OriginalPrice)
-        console.log(finalprice);
-        setFinalPrice(finalprice);
+      if (OriginalPrice > -1) {
+        if (DiscountPercentage > -1 && DiscountPercentage < 101) {
+          let finalprice =
+            OriginalPrice - (DiscountPercentage / 100) * OriginalPrice;
+          console.log(finalprice);
+          setFinalPrice(finalprice);
+        }
       }
     }
   }, [OriginalPrice, DiscountPercentage]);
