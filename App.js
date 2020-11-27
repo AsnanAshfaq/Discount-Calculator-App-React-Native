@@ -6,11 +6,13 @@ import {
   Text,
   View,
   TextInput,
+  ScrollView,
   Modal,
   Button,
   TouchableWithoutFeedback,
   ToastAndroid,
 } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 export default function App() {
   const [FinalPrice, setFinalPrice] = useState(null);
@@ -40,15 +42,62 @@ export default function App() {
 
   const HistoryModal = () => {
     return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        
-      >
-       <View>
-         <Text>Modal</Text>
-       </View>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View style={styles.centeredView}>
+          <View
+            style={
+              (styles.modalView,
+              {
+                borderRadius: 20,
+                height: History.length > 0 ? 400 : 50,
+                backgroundColor: "#DFDDDD",
+              })
+            }
+          >
+            <ScrollView>
+              {History.length == 0 ? (
+                <View style={{ padding: 10 }}>
+                  <Text>No History to show</Text>
+                </View>
+              ) : (
+                History.map((item, index) => (
+                  <View key={index} style={{ padding: 10 }}>
+                    <Text style={{ fontSize: 16 }}>Item : {index + 1}</Text>
+                    <Text>Original Price : {item.OriginalPrice}</Text>
+                    <Text>Discount Percentage : {item.DiscountPercentage}</Text>
+                    <Text>You Saved : {item.Saving}</Text>
+                    <Text>Final Price : {item.FinalPrice}</Text>
+                  </View>
+                ))
+              )}
+            </ScrollView>
+            <TouchableWithoutFeedback
+              style={{ ...styles.openButton }}
+              onPress={() => {
+                console.log("setting modal false");
+                setModalVisible(false);
+              }}
+            >
+              <Text
+                style={
+                  (styles.textStyle,
+                  {
+                    ...styles.openButton,
+                    color: "white",
+                    padding: 10,
+
+                    textAlign: "center",
+                    backgroundColor: "black",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  })
+                }
+              >
+                Close
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
       </Modal>
     );
   };
@@ -74,7 +123,7 @@ export default function App() {
   }, [OriginalPrice, DiscountPercentage]);
   return (
     <View style={styles.container}>
-      <HistoryModal/>
+      {<HistoryModal />}
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text style={{ fontSize: 30 }}>Discount Calculator App</Text>
       </View>
@@ -143,5 +192,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? 25 : 0,
+  },
+
+  // modal styles
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  openButton: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
