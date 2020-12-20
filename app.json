@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/adaptive-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/logo.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#1b1b1b"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#1b1b1b"
       }
     },
     "web": {
